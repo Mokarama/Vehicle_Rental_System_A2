@@ -8,7 +8,7 @@ const createBooking = async (payload: any) => {
     rent_end_date,
   } = payload;
 
-  // 🔹 vehicle check
+  // vehicle check
   const vehicleRes = await pool.query(
     `SELECT * FROM Vehicles WHERE id=$1`,
     [vehicle_id]
@@ -24,7 +24,7 @@ const createBooking = async (payload: any) => {
     throw new Error("Vehicle already booked");
   }
 
-  // 🔹 date calculation
+  // date calculation
   const start = new Date(rent_start_date);
   const end = new Date(rent_end_date);
 
@@ -33,14 +33,14 @@ const createBooking = async (payload: any) => {
 
   const total_price = days * vehicle.daily_rent_price;
 
-  // 🔹 booking insert
+
   const result = await pool.query(
     `INSERT INTO Bookings(customer_id, vehicle_id, rent_start_date, rent_end_date, total_price, status)
      VALUES($1,$2,$3,$4,$5,'active') RETURNING *`,
     [customer_id, vehicle_id, rent_start_date, rent_end_date, total_price]
   );
 
-  // 🔹 vehicle update
+  // vehicle update
   await pool.query(
     `UPDATE Vehicles SET availability_status='booked' WHERE id=$1`,
     [vehicle_id]
@@ -51,7 +51,6 @@ const createBooking = async (payload: any) => {
 
 
 
-// 🔥 NEW FUNCTION (Cancel + Return Logic)
 const updateBooking = async (id: string, payload: any) => {
   const bookingRes = await pool.query(
     `SELECT * FROM Bookings WHERE id=$1`,
@@ -64,7 +63,7 @@ const updateBooking = async (id: string, payload: any) => {
     throw new Error("Booking not found");
   }
 
-  // 🔹 Cancel (customer)
+
   if (payload.status === "cancelled") {
     const now = new Date();
     const start = new Date(booking.rent_start_date);
@@ -86,7 +85,7 @@ const updateBooking = async (id: string, payload: any) => {
     return { message: "Booking cancelled" };
   }
 
-  // 🔹 Return (admin)
+  //  Return (admin)
   if (payload.status === "returned") {
     await pool.query(
       `UPDATE Bookings SET status='returned' WHERE id=$1`,
@@ -108,5 +107,5 @@ const updateBooking = async (id: string, payload: any) => {
 
 export const bookingServices = {
   createBooking,
-  updateBooking, // 🔥 add
+  updateBooking, 
 };

@@ -11,12 +11,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ ROOT ROUTE (ADD THIS)
+
 app.get("/", (req, res) => {
-  res.send("Vehicle Rental API is running 🚀");
+  res.send("Hello world ! ");
 });
 
-// 🔥 ROUTES CONNECT
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/vehicles", vehicleRoutes);

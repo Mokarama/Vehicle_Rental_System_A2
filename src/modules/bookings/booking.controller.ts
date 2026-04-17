@@ -33,7 +33,7 @@ const getBooking = async (req: Request, res: Response) => {
 };
 
 
-// 🔥 UPDATED FUNCTION (Cancel + Return)
+
 const updateBooking = async (req: Request, res: Response) => {
   try {
     const result = await bookingServices.updateBooking(
