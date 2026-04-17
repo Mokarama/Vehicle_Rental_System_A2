@@ -1,16 +1,16 @@
 #  Vehicle Rental System
 
-🔗 **Live Link:** https://vehicle-rental-system-a2.onrender.com
-🔗 **GitHub Repository:** https://github.com/Mokarama/Vehicle_Rental_System_A2
+ **Live Deploy:** https://vehicle-rental-system-a2.onrender.com
+ **GitHub Repository:** https://github.com/Mokarama/Vehicle_Rental_System_A2
 
 ---
 
 ##  Project Overview
 
-The Vehicle Rental System is a backend API built with Node.js, Express, and PostgreSQL.
-It allows users to register, log in, and book vehicles easily. The system also supports role-based access where admin users can manage vehicles and bookings.
+The Vehicle Rental System is a backend REST API built using Node.js, Express, and PostgreSQL.
+It allows users to register, authenticate, and manage vehicle bookings efficiently.
 
-This project focuses on building a structured REST API with authentication and database integration.
+The system follows a modular architecture and implements role-based access control, where admin users can manage vehicles and bookings, while customers can browse and create bookings.
 
 ---
 
@@ -26,15 +26,23 @@ This project focuses on building a structured REST API with authentication and d
 
 ---
 
-##  Features
+##  Key Features
 
-* User registration and login system
-* JWT-based authentication
+* User registration and authentication (JWT-based)
 * Role-based authorization (Admin & Customer)
 * Vehicle management system
 * Booking system with automatic price calculation
-* Secure password storage using hashing
+* Secure password hashing
 * Protected API routes
+* Modular and scalable project structure
+
+---
+
+##  API Base URL
+
+```
+https://vehicle-rental-system-a2.onrender.com
+```
 
 ---
 
@@ -42,32 +50,74 @@ This project focuses on building a structured REST API with authentication and d
 
 ###  Authentication
 
-* POST `/api/v1/auth/signup` → Register user
-* POST `/api/v1/auth/signin` → Login user
+* `POST /api/v1/auth/signup` → Register user
+* `POST /api/v1/auth/signin` → Login user
 
 ---
 
 ###  Users
 
-* GET `/api/v1/users` → Get all users
+* `GET /api/v1/users` → Get all users
 
 ---
 
 ###  Vehicles
 
-* GET `/api/v1/vehicles` → Get all vehicles
-* POST `/api/v1/vehicles` → Create vehicle
-* GET `/api/v1/vehicles/:id` → Get single vehicle
-* PUT `/api/v1/vehicles/:id` → Update vehicle
-* DELETE `/api/v1/vehicles/:id` → Delete vehicle
+* `GET /api/v1/vehicles` → Get all vehicles
+* `POST /api/v1/vehicles` → Create vehicle
+* `GET /api/v1/vehicles/:id` → Get single vehicle
+* `PUT /api/v1/vehicles/:id` → Update vehicle
+* `DELETE /api/v1/vehicles/:id` → Delete vehicle
 
 ---
 
-###  Bookings
+### Bookings
 
-* POST `/api/v1/bookings` → Create booking
-* GET `/api/v1/bookings` → Get bookings
-* PUT `/api/v1/bookings/:bookingId` → Update booking
+* `POST /api/v1/bookings` → Create booking
+* `GET /api/v1/bookings` → Get bookings
+* `PUT /api/v1/bookings/:bookingId` → Update booking
+
+---
+
+##  Authentication
+
+Protected routes require a JWT token.
+
+Example:
+
+```
+Authorization: Bearer your_token_here
+```
+
+---
+
+##  Business Logic
+
+* Booking price is calculated based on rental duration
+* Vehicle status changes to **"booked"** when a booking is created
+* Vehicle becomes **"available"** after booking is cancelled or returned
+
+---
+
+##  Project Structure
+
+```
+src/
+│
+├── app.ts
+├── server.ts
+├── config/
+│   └── db.ts
+│
+├── modules/
+│   ├── auth/
+│   ├── users/
+│   ├── vehicles/
+│   └── bookings/
+│
+├── middleware/
+│   └── auth.ts
+```
 
 ---
 
@@ -110,7 +160,7 @@ npm run dev
 
 ---
 
-## 🧪 Testing
+## Testing
 
 You can test the API using:
 
@@ -125,7 +175,7 @@ The project is deployed on **Render** and uses **Neon PostgreSQL Database**.
 
 ---
 
-##  Important Notes
+## Important Notes
 
 * Make sure the database connection string is valid
 * JWT token is required for protected routes
@@ -133,6 +183,6 @@ The project is deployed on **Render** and uses **Neon PostgreSQL Database**.
 
 ---
 
-##Author
+## Author
 
-Developed by **Mokarama Akter**
+Developed by **Mokarama Akter Shanta**

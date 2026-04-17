@@ -32,12 +32,10 @@ const getBooking = async (req: Request, res: Response) => {
   }
 };
 
-
-
 const updateBooking = async (req: Request, res: Response) => {
   try {
     const result = await bookingServices.updateBooking(
-      req.params.bookingId,
+      req.params.bookingId!, 
       req.body
     );
 
